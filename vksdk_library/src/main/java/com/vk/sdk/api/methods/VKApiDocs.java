@@ -36,6 +36,10 @@ import java.io.File;
  */
 public class VKApiDocs extends VKApiBase {
 
+    public VKRequest get() {
+        return prepareRequest("get", null);
+    }
+
     /**
      * https://vk.com/dev/docs.getUploadServer
      * Returns upload server for document
@@ -119,6 +123,18 @@ public class VKApiDocs extends VKApiBase {
      */
     public VKRequest uploadWallDocRequest(File doc, long groupId) {
         return new VKUploadWallDocRequest(doc, groupId);
+    }
+
+    /**
+     * Delete a document to VK servers
+     * @param ownerId owner id
+     * @param docId document id
+     * @return Prepared vk request for doc delete
+     */
+    public VKRequest getDeleteRequest(int ownerId, int docId) {
+        return prepareRequest("delete", VKUtil.paramsFrom(
+                VKApiConst.OWNER_ID, ownerId,
+                VKApiConst.DOC_ID, docId));
     }
 
     @Override
