@@ -27,6 +27,9 @@ import android.text.TextUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Date;
+
 import static com.vk.sdk.api.model.VKAttachments.*;
 
 /**
@@ -34,7 +37,6 @@ import static com.vk.sdk.api.model.VKAttachments.*;
  */
 @SuppressWarnings("unused")
 public class VKApiDocument extends VKApiAttachment implements Parcelable, Identifiable {
-
     /**
      * Document ID.
      */
@@ -64,6 +66,16 @@ public class VKApiDocument extends VKApiAttachment implements Parcelable, Identi
      * Document URL for downloading.
      */
     public String url;
+
+    /**
+     * Date of upload.
+     */
+    public Date date;
+
+    /**
+     * Extension type: TEXT, AUDIO, etc.
+     */
+    public int extType;
 
     /**
      * URL of the 100x75px image (if the file is graphical).
@@ -102,6 +114,8 @@ public class VKApiDocument extends VKApiAttachment implements Parcelable, Identi
         size = jo.optLong("size");
         ext = jo.optString("ext");
         url = jo.optString("url");
+        date = new Date(jo.optLong("date") * 1000);
+        extType = jo.optInt("type");
         access_key = jo.optString("access_key");
 
         photo_100 = jo.optString("photo_100");
@@ -126,6 +140,8 @@ public class VKApiDocument extends VKApiAttachment implements Parcelable, Identi
         this.size = in.readLong();
         this.ext = in.readString();
         this.url = in.readString();
+        this.date = new Date(in.readLong() * 1000);
+        this.extType = in.readInt();
         this.photo_100 = in.readString();
         this.photo_130 = in.readString();
         this.photo = in.readParcelable(VKPhotoSizes.class.getClassLoader());
@@ -193,6 +209,8 @@ public class VKApiDocument extends VKApiAttachment implements Parcelable, Identi
         dest.writeLong(this.size);
         dest.writeString(this.ext);
         dest.writeString(this.url);
+        dest.writeLong(this.date.getTime() / 1000);
+        dest.writeInt(this.extType);
         dest.writeString(this.photo_100);
         dest.writeString(this.photo_130);
         dest.writeParcelable(this.photo, flags);
