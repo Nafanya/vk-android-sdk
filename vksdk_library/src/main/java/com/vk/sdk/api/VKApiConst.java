@@ -118,6 +118,8 @@ public class VKApiConst {
     public static final String FEED_TYPE = "feed_type";
     public static final String FEED = "feed";
 
+    public static final String TITLE = "title";
+
     //Videos
     public static final String ADULT = "adult";
 

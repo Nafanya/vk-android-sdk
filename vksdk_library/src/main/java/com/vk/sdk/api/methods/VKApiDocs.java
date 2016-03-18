@@ -59,6 +59,20 @@ public class VKApiDocs extends VKApiBase {
     }
 
     /**
+     * https://vk.com/dev/docs.edit
+     * Edit document
+     * @param ownerId
+     * @param docId
+     * @return Request for editing doc
+     */
+    public VKRequest getEdit(long ownerId, long docId, String newTitle) {
+        return prepareRequest("edit", VKUtil.paramsFrom(
+                VKApiConst.OWNER_ID, ownerId,
+                VKApiConst.DOC_ID, docId,
+                VKApiConst.TITLE, newTitle));
+    }
+
+    /**
      * https://vk.com/dev/docs.getWallUploadServer
      * Returns wall upload server for document
      * @return Request for get server address
